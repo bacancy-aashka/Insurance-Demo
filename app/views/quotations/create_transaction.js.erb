@@ -1,5 +1,6 @@
 <% if @transaction.errors.any? %>
   $("#error_fields").html("<%= escape_javascript(render partial: 'error' ) %>");
+  $(window).scrollTop(0);
 <% else %>
   <% if @res_type == 'Callback'%>
     $("#modal_form").html("<%= escape_javascript(render partial: 'callback_modal' ) %>");
@@ -11,3 +12,5 @@
     myModal.show();
   <% end %>
 <% end %>
+
+// if condition for success save

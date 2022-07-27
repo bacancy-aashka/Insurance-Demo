@@ -1,31 +1,30 @@
+<hr>
 <div>
-  <h1>
-    INSURANCE PREMIUM:
-  </h1>
-  <h1>
-    <%= @quotation.insurance_value %> $ 
-  </h1>
+  <h2>INSURANCE PREMIUM</h2>
+  <h1 class="text-primary"> <%= @quotation.insurance_value %> $ </h1>
 
-  <h2>
-    For a property valued at <%= @quotation.eval_value %>$ , your one time insurance premium is <%= @quotation.insurance_value %>
-  </h2>
+  <h4> For a property valued at <%= @quotation.eval_value %>$ , your one time insurance premium is <%= @quotation.insurance_value %> </h4>
 </div>
+<hr>
 
-<%= form_with(model: @transaction, remote: true, url: create_transaction_path) do |f| %>
+<h2> Transaction Information </h2>
+<%= form_with(model: @transaction, remote: true, url: create_transaction_quotations_path) do |f| %>
+  <div id="transaction_error_fields">
+  </div>
 
-  <div class="field">
-    <%= f.label 'Languages*' %>
-    <div class='d-flex'>
+  <div class="field d-flex">
+    <%= f.label 'Languages:*' %>
+    <div class='d-flex mx-3'>
     <% TransactionInfo.languages.each do |lang, val| %>
       <%= f.radio_button :language, val, required: true %>
-      <%= f.label lang,class: 'mx-2' %>
+      <%= f.label lang,class: 'mx-2',for: "transaction_info_language_#{val}" %>
     <% end %>
   </div>
   </div>
   <%= f.hidden_field :quotation_id, value: @quotation.id %>
 
   <div class="field">
-    <%= f.label 'Homeowner Name' %>
+    <%= f.label 'Homeowner(s) Name(s)*' %>
     <%= f.text_field :home_owner_1, required: true,placeholder: 'Owner 1*' %>
     <%= f.text_field :home_owner_2,placeholder: 'Owner 2' %>
     <%= f.text_field :home_owner_3,placeholder: 'Owner 3' %>
@@ -46,44 +45,23 @@
     <%= f.date_field :purchase_date, max: Date.today,required: true %>
   </div>
 
-
-  <h2>
-    Legal info
-  </h2>
+  <hr>
+  <h2> Legal info </h2>
 
   <div class="field">
-    <%= f.label 'Lots' %>
+    <%= f.label 'Lots number(s):*' %>
     <%= f.text_field :lot_number, required: true,placeholder: 'Lot Number*' %>
   </div>
-
-  <%= f.fields_for :address do |f| %>
-    <div class="field" style="display: flex;">
-      <div class="field" style="margin: 5px;">
-        <%= f.label :address %>
-        <%= f.text_area :address, required: true %>
-      </div>
-
-      <div class="field" style="margin: 5px;">
-        <%= f.label :postal_code %>
-        <%= f.text_field :postal_code, required: true %>
-      </div>
-
-      <div class="field" style="margin: 5px;">
-        <%= f.label :city %>
-        <%= f.text_field :city, required: true %>
-      </div>
-
-      <div class="field" style="margin: 5px;">
-        <%= f.label :province %>
-        <%= f.text_field :province, required: true %>
-      </div>
+  <div class="row mx-0">
+    <div class="col-4 px-0">
+      <%= f.fields_for :address do |f| %>
+        <%= render partial: "address_fields", locals: {f: f}%>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 
-
-  <h2>
-    Information regarding the property
-  </h2>
+  <hr>
+  <h2> Information regarding the property </h2>
 
   <div class="field">
     <p>Is the Insured Property bound by water (lac, stream, river, etc.)?*</p>
@@ -124,7 +102,7 @@
     <%= f.email_field :agent_email %>
   </div>
 
-  <%= f.submit "Get a callback" %>
-  <%= f.submit "Pay Online" %>
+  <%= f.submit "Pay Online", class: 'btn btn-success my-3' %>
+  <%= f.submit "Get a callback", class: 'btn btn-primary my-3' %>
 
 <% end %>

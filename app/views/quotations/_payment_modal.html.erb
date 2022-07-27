@@ -6,40 +6,63 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <%= form_with(model: @card_information, remote: true, url: create_card_info_path) do |f| %>
-          <div class="field">
-            <%= f.label :postal_code %>
-            <%= f.text_field :postal_code,required: true %>
+        <%= form_with(model: @card_information, remote: true, url: create_card_info_quotations_path) do |f| %>
+          <div class="field row">
+            <div class="col-4">
+              <%= f.label :postal_code %>
+            </div>
+            <div class="col-8">
+              <%= f.text_field :postal_code,required: true %>
+            </div>
           </div>
 
-          <div class="field">
-            <%= f.label :card_number %>
-            <%= f.text_field :card_number,required: true %>
+          <div class="field row">
+            <div class="col-4">
+              <%= f.label :card_name %>
+            </div>
+            <div class="col-8">
+              <%= f.text_field :card_name,required: true %>
+            </div>
           </div>
 
-          <div class="field">
-            <%= f.label :expiry_date %>
-            <%= f.text_field :expiry_date,required: true %>
+          <div class="field row">
+            <div class="col-4">
+              <%= f.label :card_number %>
+            </div>
+            <div class="col-8">
+              <%= f.text_field :card_number,required: true %>
+            </div>
+          </div>
+
+          <div class="field row">
+            <div class="col-4">
+              <%= f.label :expiry_date %>
+            </div>
+            <div class="col-8">
+              <%= f.text_field :expiry_date,required: true %>
+            </div>
             <%= f.hidden_field :transaction_info_id,value: @transaction.id %>
           </div>
 
-
-          <div class="field">
-            <%= f.label :card_name %>
-            <%= f.text_field :card_name,required: true %>
+          <div class="field row">
+            <div class="col-4">
+              <%= f.label :cvv %>
+            </div>
+            <div class="col-8">
+              <%= f.text_field :cvv,required: true %>
+            </div>
           </div>
 
-          <div class="field">
-            <%= f.label :cvv %>
-            <%= f.text_field :cvv,required: true %>
+          <div class="field row">
+            <div class="col-4">
+              <%= f.label :email %>
+            </div>
+            <div class="col-8">
+              <%= f.text_field :email,required: true %>
+            </div>
           </div>
 
-          <div class="field">
-            <%= f.label :email %>
-            <%= f.text_field :email,required: true %>
-          </div>
-
-          <%= f.submit "Pay $#{@transaction.quotation.insurance_value}" %>          
+          <%= f.submit "Pay $#{@transaction.quotation.insurance_value}", class: "btn btn-success" %>          
         <% end %>
       </div>
     </div>

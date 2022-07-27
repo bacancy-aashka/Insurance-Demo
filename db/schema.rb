@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_27_115319) do
+ActiveRecord::Schema.define(version: 2022_07_27_201429) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2022_07_27_115319) do
   end
 
   create_table "callback_informations", force: :cascade do |t|
-    t.integer "phone_number"
+    t.string "phone_number"
     t.integer "call_availability"
     t.bigint "transaction_info_id"
     t.datetime "created_at", precision: 6, null: false
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 2022_07_27_115319) do
     t.float "insurance_value"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "phone_number"
   end
 
   create_table "transaction_infos", force: :cascade do |t|
