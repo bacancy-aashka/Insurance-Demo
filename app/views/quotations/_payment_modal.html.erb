@@ -1,0 +1,47 @@
+<div class="modal fade" id="card_info_form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Pay Online</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= form_with(model: @card_information, remote: true, url: create_card_info_path) do |f| %>
+          <div class="field">
+            <%= f.label :postal_code %>
+            <%= f.text_field :postal_code,required: true %>
+          </div>
+
+          <div class="field">
+            <%= f.label :card_number %>
+            <%= f.text_field :card_number,required: true %>
+          </div>
+
+          <div class="field">
+            <%= f.label :expiry_date %>
+            <%= f.text_field :expiry_date,required: true %>
+            <%= f.hidden_field :transaction_info_id,value: @transaction.id %>
+          </div>
+
+
+          <div class="field">
+            <%= f.label :card_name %>
+            <%= f.text_field :card_name,required: true %>
+          </div>
+
+          <div class="field">
+            <%= f.label :cvv %>
+            <%= f.text_field :cvv,required: true %>
+          </div>
+
+          <div class="field">
+            <%= f.label :email %>
+            <%= f.text_field :email,required: true %>
+          </div>
+
+          <%= f.submit "Pay $#{@transaction.quotation.insurance_value}" %>          
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

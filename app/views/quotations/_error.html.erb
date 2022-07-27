@@ -1,0 +1,22 @@
+<% if @quotation.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@quotation.errors.count, "error") %> prohibited this quotation from being saved:</h2>
+
+    <ul>
+      <% @quotation.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<% if @transaction.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+
+    <ul>
+      <% @transaction.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

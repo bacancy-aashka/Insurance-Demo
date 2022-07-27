@@ -1,0 +1,13 @@
+<% if @transaction.errors.any? %>
+  $("#error_fields").html("<%= escape_javascript(render partial: 'error' ) %>");
+<% else %>
+  <% if @res_type == 'Callback'%>
+    $("#modal_form").html("<%= escape_javascript(render partial: 'callback_modal' ) %>");
+    var myModal = new bootstrap.Modal(document.getElementById('callback_form'))
+    myModal.show();
+  <% else %>
+    $("#modal_form").html("<%= escape_javascript(render partial: 'payment_modal' ) %>");
+    var myModal = new bootstrap.Modal(document.getElementById('card_info_form'))
+    myModal.show();
+  <% end %>
+<% end %>

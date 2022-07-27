@@ -1,0 +1,130 @@
+<div>
+  <h1>
+    INSURANCE PREMIUM:
+  </h1>
+  <h1>
+    <%= @quotation.insurance_value %> $ 
+  </h1>
+
+  <h2>
+    For a property valued at <%= @quotation.eval_value %>$ , your one time insurance premium is <%= @quotation.insurance_value %>
+  </h2>
+</div>
+
+<%= form_with(model: @transaction, remote: true, url: create_transaction_path) do |f| %>
+
+  <div class="field">
+    <%= f.label 'Languages*' %>
+    <div class='d-flex'>
+    <% TransactionInfo.languages.each do |lang, val| %>
+      <%= f.radio_button :language, val, required: true %>
+      <%= f.label lang,class: 'mx-2' %>
+    <% end %>
+  </div>
+  </div>
+  <%= f.hidden_field :quotation_id, value: @quotation.id %>
+
+  <div class="field">
+    <%= f.label 'Homeowner Name' %>
+    <%= f.text_field :home_owner_1, required: true,placeholder: 'Owner 1*' %>
+    <%= f.text_field :home_owner_2,placeholder: 'Owner 2' %>
+    <%= f.text_field :home_owner_3,placeholder: 'Owner 3' %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Property type*' %>
+    <%= f.select :property_type, TransactionInfo.property_types.keys, :include_blank => 'Select Property Type',required: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Property owner' %>
+    <%= f.radio_button :property_owner, true %> Yes
+  </div>
+
+  <div class="field">
+    <%= f.label 'Purchase date*' %>
+    <%= f.date_field :purchase_date, max: Date.today,required: true %>
+  </div>
+
+
+  <h2>
+    Legal info
+  </h2>
+
+  <div class="field">
+    <%= f.label 'Lots' %>
+    <%= f.text_field :lot_number, required: true,placeholder: 'Lot Number*' %>
+  </div>
+
+  <%= f.fields_for :address do |f| %>
+    <div class="field" style="display: flex;">
+      <div class="field" style="margin: 5px;">
+        <%= f.label :address %>
+        <%= f.text_area :address, required: true %>
+      </div>
+
+      <div class="field" style="margin: 5px;">
+        <%= f.label :postal_code %>
+        <%= f.text_field :postal_code, required: true %>
+      </div>
+
+      <div class="field" style="margin: 5px;">
+        <%= f.label :city %>
+        <%= f.text_field :city, required: true %>
+      </div>
+
+      <div class="field" style="margin: 5px;">
+        <%= f.label :province %>
+        <%= f.text_field :province, required: true %>
+      </div>
+    </div>
+  <% end %>
+
+
+  <h2>
+    Information regarding the property
+  </h2>
+
+  <div class="field">
+    <p>Is the Insured Property bound by water (lac, stream, river, etc.)?*</p>
+    <%= f.radio_button :bound_water, true, required: true %> YES
+    <%= f.radio_button :bound_water, false, required: true %> NO
+  </div>
+
+  <div class="field">
+    <p>Is the Insured Property on Municipal Water and Municipal Sewer?*</p>
+    <%= f.radio_button :muncipal_water, true, required: true %> YES
+    <%= f.radio_button :muncipal_water, false, required: true %> NO
+  </div>
+
+  <div class="field">
+    <p>Has a title insurance already been issued for the insured property according to the client ?*</p>
+    <%= f.radio_button :insurance_issued, true, required: true %> YES
+    <%= f.radio_button :insurance_issued, false, required: true %> NO
+  </div>
+
+  <div class="field">
+    <p>Has a title insurance been denied for the insured property, to the best of the client's knowledge?*</p>
+    <%= f.radio_button :insurance_denied, true, required: true %> YES
+    <%= f.radio_button :insurance_denied, false, required: true %> NO
+  </div>
+
+  <div class="field" >
+    <h2>Notes</h2>
+    <%= f.text_area :note, rows: 5, cols: 100 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :agent_name %>
+    <%= f.text_field :agent_name %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :agent_email %>
+    <%= f.email_field :agent_email %>
+  </div>
+
+  <%= f.submit "Get a callback" %>
+  <%= f.submit "Pay Online" %>
+
+<% end %>

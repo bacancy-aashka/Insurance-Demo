@@ -1,0 +1,26 @@
+<div class="modal fade" id="callback_form" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Request Callback</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= form_with(model: @callback_information, remote: true, url: create_callback_path) do |f| %>
+          <div class="field">
+            <%= f.label :phone_number %>
+            <%= f.number_field :phone_number %>
+          </div>
+
+          <div class="field">
+            <%= f.label 'Call Availability*' %>
+            <%= f.select :call_availability, CallbackInformation.call_availabilities.keys,required: true %>
+          </div>
+
+          <%= f.hidden_field :transaction_info_id,value: @transaction.id %>
+          <%= f.submit "Create callback"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

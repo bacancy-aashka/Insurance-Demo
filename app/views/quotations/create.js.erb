@@ -1,0 +1,5 @@
+<% if @quotation.errors.any? %>
+  $("#error_fields").html("<%= escape_javascript(render partial: 'error' ) %>");
+<% else %>
+  $("#transaction_form").html("<%= escape_javascript(render partial: 'transaction_form' ) %>");
+<% end %>
