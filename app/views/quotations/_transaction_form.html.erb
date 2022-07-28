@@ -15,19 +15,18 @@
   <div class="field d-flex">
     <%= f.label 'Languages:*' %>
     <div class='d-flex mx-3'>
-    <% TransactionInfo.languages.each do |lang, val| %>
-      <%= f.radio_button :language, val, required: true %>
-      <%= f.label lang,class: 'mx-2',for: "transaction_info_language_#{val}" %>
-    <% end %>
+      <% TransactionInfo.languages.each do |lang, val| %>
+        <%= f.radio_button :language, val, required: true %>
+        <%= f.label lang,class: 'mx-2',for: "transaction_info_language_#{val}" %>
+      <% end %>
+    </div>
   </div>
-  </div>
-  <%= f.hidden_field :quotation_id, value: @quotation.id %>
 
   <div class="field">
     <%= f.label 'Homeowner(s) Name(s)*' %>
-    <%= f.text_field :home_owner_1, required: true,placeholder: 'Owner 1*' %>
-    <%= f.text_field :home_owner_2,placeholder: 'Owner 2' %>
-    <%= f.text_field :home_owner_3,placeholder: 'Owner 3' %>
+    <%= f.text_field :home_owner_1, placeholder: 'Owner 1*', required: true %>
+    <%= f.text_field :home_owner_2, placeholder: 'Owner 2' %>
+    <%= f.text_field :home_owner_3, placeholder: 'Owner 3' %>
   </div>
 
   <div class="field">
@@ -52,6 +51,7 @@
     <%= f.label 'Lots number(s):*' %>
     <%= f.text_field :lot_number, required: true,placeholder: 'Lot Number*' %>
   </div>
+  
   <div class="row mx-0">
     <div class="col-4 px-0">
       <%= f.fields_for :address do |f| %>

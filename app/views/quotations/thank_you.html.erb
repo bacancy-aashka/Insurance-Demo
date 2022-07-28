@@ -1,0 +1,21 @@
+<div class="modal fade" id="thank_you" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Data Saved</h5>
+      </div>
+      <div class="modal-body">
+        Thank you
+      </div>
+      <div class="modal-footer">
+        <%= link_to "Done", root_path, class: 'btn btn-primary'%>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $("#thank_you").modal('show');
+  });
+</script>

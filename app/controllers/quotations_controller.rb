@@ -9,14 +9,11 @@ class QuotationsController < ApplicationController
     @transaction = TransactionInfo.new(transaction_params)
     respond_to do |format|
       if @transaction.save
-        @res_type = if params[:commit] == 'Get a callback'
-          'Callback'
-        else
-          'Payment'
-        end
-        if @res_type == 'Callback'
+        if params[:commit] == 'Get a callback'
+          @res_type = 'Callback'
           @callback_information = CallbackInformation.new
         else
+          @res_type = 'Payment'
           @card_information = CardInformation.new
         end
         format.js { render layout: false }
@@ -25,31 +22,26 @@ class QuotationsController < ApplicationController
       end
     end
   end
-  # param[res_type] / ternary operator
 
   def create_callback
     @callback_information = CallbackInformation.create(callback_params)
-    redirect_to root_path
+    redirect_to thank_you_quotations_path
   end
 
   def create_card_info
     @card_information = CardInformation.create(card_info_params)
-    redirect_to root_path
+    redirect_to thank_you_quotations_path
   end
   
   
   def create
     @quotation = Quotation.new(quotation_params)
-    #  modal
-    prime_tx = ((((@quotation.eval_value-500000)/1000)*1.17)+320)
-
-    @quotation.insurance_value = ((prime_tx.round(2) + 20 + (prime_tx*0.09).round(2)).abs).round(2)
+    @quotation.insurance_value = @quotation.calculate_insurance_premium(@quotation.eval_value)
 
     respond_to do |format|
       if @quotation.save
-        # after save callback
-        @transaction = TransactionInfo.new
-        @transaction.home_owner_1 = @quotation.first_name + ' '+ @quotation.last_name
+        @transaction = TransactionInfo.new(quotation_id: @quotation)
+        @transaction.home_owner_1 = @quotation.first_name +' '+ @quotation.last_name
         @transaction.build_address
         @transaction.address = @quotation.address
         format.js { render layout: false }
