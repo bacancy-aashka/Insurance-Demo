@@ -173,3 +173,4 @@
   <strong> Transaction id:</strong>
   <%= Digest::SHA1.hexdigest(@transaction.card_information.id.to_s)%>
 <% end %>
+<div> <%= link_to "Done", root_path, class: 'btn btn-primary'%> </div>
