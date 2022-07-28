@@ -9,7 +9,7 @@ class QuotationsController < ApplicationController
     @transaction = TransactionInfo.new(transaction_params)
     respond_to do |format|
       if @transaction.save
-        if params[:commit] == 'Get a callback'
+        if params[:request_callback]
           @res_type = 'Callback'
           @callback_information = CallbackInformation.new
         else
@@ -40,8 +40,8 @@ class QuotationsController < ApplicationController
 
     respond_to do |format|
       if @quotation.save
-        @transaction = TransactionInfo.new(quotation_id: @quotation)
-        @transaction.home_owner_1 = @quotation.first_name +' '+ @quotation.last_name
+        @transaction = TransactionInfo.new
+        @transaction.home_owner_1 = @quotation.first_name + ' ' + @quotation.last_name
         @transaction.build_address
         @transaction.address = @quotation.address
         format.js { render layout: false }

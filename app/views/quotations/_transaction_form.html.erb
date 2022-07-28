@@ -13,6 +13,7 @@
   </div>
 
   <div class="field d-flex">
+    <%= f.hidden_field :quotation_id, value: @quotation.id %>
     <%= f.label 'Languages:*' %>
     <div class='d-flex mx-3'>
       <% TransactionInfo.languages.each do |lang, val| %>
@@ -102,7 +103,7 @@
     <%= f.email_field :agent_email %>
   </div>
 
-  <%= f.submit "Pay Online", class: 'btn btn-success my-3' %>
-  <%= f.submit "Get a callback", class: 'btn btn-primary my-3' %>
+  <%= f.submit "Pay Online", class: 'btn btn-success my-3', name: 'pay_online' %>
+  <%= f.submit "Get a callback", class: 'btn btn-primary my-3', name: 'request_callback' %>
 
 <% end %>
