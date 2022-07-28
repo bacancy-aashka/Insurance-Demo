@@ -1,21 +1,175 @@
-<div class="modal fade" id="thank_you" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="false">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" >Data Saved</h5>
-      </div>
-      <div class="modal-body">
-        Thank you
-      </div>
-      <div class="modal-footer">
-        <%= link_to "Done", root_path, class: 'btn btn-primary'%>
-      </div>
-    </div>
-  </div>
+<div class="alert alert-success" role="alert">
+  Data Saved Successfully
 </div>
 
-<script>
-  $(document).ready(function(){
-    $("#thank_you").modal('show');
-  });
-</script>
+<h2>Quotation Details</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Name</td>
+      <td><%= @quotation.first_name %> <%= @quotation.last_name %></td>
+    </tr>
+    <tr>
+      <td>Phone Number</td>
+      <td><%= @quotation.phone_number %> </td>
+    </tr>
+    <tr>
+      <td>Email</td>
+      <td><%= @quotation.email %> </td>
+    </tr>
+    <tr>
+      <td>Address</td>
+      <td><%= @quotation.address.address %> </td>
+    </tr>
+    <tr>
+      <td>City</td>
+      <td><%= @quotation.address.city %> </td>
+    </tr>
+    <tr>
+      <td>Province</td>
+      <td><%= @quotation.address.province %> </td>
+    </tr>
+    <tr>
+      <td>Postal Code</td>
+      <td><%= @quotation.address.postal_code %> </td>
+    </tr>
+    <tr>
+      <td>Muncipal evaluation of the property</td>
+      <td><%= @quotation.eval_value %>$ </td>
+    </tr>
+    <tr>
+      <td>INSURANCE PREMIUM</td>
+      <td><%= @quotation.insurance_value %>$ </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Transaction Details</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Languages</td>
+      <td><%= TransactionInfo.languages.keys[@quotation.transaction_info.language].titleize %></td>
+    </tr>
+    <tr>
+      <td>Home Owner</td>
+      <td><%= @quotation.transaction_info.home_owner_1 %> </td>
+    </tr>
+    <% if @quotation.transaction_info.home_owner_2? %>
+      <tr>
+        <td>Home Owner 2</td>
+        <td><%= @quotation.transaction_info.home_owner_2 %> </td>
+      </tr>
+    <%end%>
+    <% if @quotation.transaction_info.home_owner_3? %>
+      <tr>
+        <td>Home Owner 3</td>
+        <td><%= @quotation.transaction_info.home_owner_3 %> </td>
+      </tr>
+    <%end%>
+    <tr>
+      <td>Property Type</td>
+      <td><%= TransactionInfo.property_types.keys[@quotation.transaction_info.property_type] %> </td>
+    </tr>
+    <tr>
+      <td>Property Owner</td>
+      <td><%= @quotation.transaction_info.property_owner.humanize %> </td>
+    </tr>
+    <tr>
+      <td>Purchase Date</td>
+      <td><%= @quotation.transaction_info.purchase_date %> </td>
+    </tr>
+    <tr>
+      <td>Lot Number</td>
+      <td><%= @quotation.transaction_info.lot_number %> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Legal Info</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Lot Number</td>
+      <td><%= @quotation.transaction_info.lot_number %> </td>
+    </tr>
+    <tr>
+      <td>Address</td>
+      <td><%= @quotation.transaction_info.address.address %> </td>
+    </tr>
+    <tr>
+      <td>City</td>
+      <td><%= @quotation.transaction_info.address.city %> </td>
+    </tr>
+    <tr>
+      <td>Province</td>
+      <td><%= @quotation.transaction_info.address.province %> </td>
+    </tr>
+    <tr>
+      <td>Postal Code</td>
+      <td><%= @quotation.transaction_info.address.postal_code %> </td>
+    </tr>
+    <tr>
+  </tbody>
+</table>
+
+<h2>Information regarding property</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Is the Insured Property bound by water (lac, stream, river, etc.)?</td>
+      <td><%= @quotation.transaction_info.bound_water.humanize %> </td>
+    </tr>
+    <tr>
+      <td>Is the Insured Property on Municipal Water and Municipal Sewer?</td>
+      <td><%= @quotation.transaction_info.muncipal_water.humanize %> </td>
+    </tr>
+    <tr>
+      <td>Has a title insurance already been issued for the insured property according to the client ?</td>
+      <td><%= @quotation.transaction_info.insurance_issued.humanize %> </td>
+    </tr>
+    <tr>
+      <td>Has a title insurance been denied for the insured property, to the best of the client's knowledge?</td>
+      <td><%= @quotation.transaction_info.insurance_denied.humanize %> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Note</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Note</td>
+      <td><%= @quotation.transaction_info.note %> </td>
+    </tr>
+    <tr>
+      <td>Agent Name</td>
+      <td><%= @quotation.transaction_info.agent_name %> </td>
+    </tr>
+    <tr>
+      <td>Agen Email</td>
+      <td><%= @quotation.transaction_info.agent_email %> </td>
+    </tr>
+  </tbody>
+</table>
+
+<% if @quotation.transaction_info.callback_information.present? %>
+  <h3> Callback Requested </h3>
+  <div>
+  Phone Number:
+  <%= @quotation.transaction_info.callback_information.phone_number %>
+  </div>
+  <div>
+  Call Availability:
+  <%= CallbackInformation.call_availabilities.keys[@quotation.transaction_info.callback_information.call_availability] %>
+  </div>
+<% else %>
+  <h3 class="text-success my-2"> Payment Done Online </h3>
+  <strong> Transaction id:</strong>
+  <%= Digest::SHA1.hexdigest(@quotation.transaction_info.card_information.id.to_s)%>
+<% end %>

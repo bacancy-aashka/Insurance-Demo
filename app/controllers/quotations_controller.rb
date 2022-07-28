@@ -23,14 +23,22 @@ class QuotationsController < ApplicationController
     end
   end
 
+  def thank_you
+    @quotation = Quotation.includes(:address, transaction_info: [:address]).find_by(id: params[:quotation_id])
+    unless @quotation
+      redirect_to root_path
+    end
+  end
+  
+
   def create_callback
     @callback_information = CallbackInformation.create(callback_params)
-    redirect_to thank_you_quotations_path
+    redirect_to quotation_thank_you_path(quotation_id: @callback_information.transaction_info.quotation_id)
   end
 
   def create_card_info
     @card_information = CardInformation.create(card_info_params)
-    redirect_to thank_you_quotations_path
+    redirect_to quotation_thank_you_path(quotation_id: @card_information.transaction_info.quotation_id)
   end
   
   
@@ -42,12 +50,10 @@ class QuotationsController < ApplicationController
       if @quotation.save
         @transaction = create_new_transaction(@quotation)
         format.js { render layout: false }
-        format.html { redirect_to root_path, notice: "Quotation was successfully created." }
-        
+        format.html { redirect_to root_path, notice: "Quotation was successfully created." }      
       else
         format.js { render layout: false, status: :unprocessable_entity }
         format.html { render :new, status: :unprocessable_entity }
-        
       end
     end
   end

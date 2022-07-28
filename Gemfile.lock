@@ -80,6 +80,8 @@ GEM
     ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    humanize_boolean (0.0.2)
+      i18n
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.5)
@@ -212,6 +214,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
+  humanize_boolean
   jbuilder (~> 2.7)
   listen (~> 3.2)
   pg (>= 0.18, < 2.0)
