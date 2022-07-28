@@ -39,7 +39,7 @@
               <%= f.label :expiry_date %>
             </div>
             <div class="col-8">
-              <%= f.text_field :expiry_date,required: true %>
+              <%= f.month_field :expiry_date,required: true, min: Date.today %>
             </div>
             <%= f.hidden_field :transaction_info_id,value: @transaction.id %>
           </div>

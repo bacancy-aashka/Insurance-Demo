@@ -1,3 +1,3 @@
 class CardInformation < ApplicationRecord
-  belongs_to :quotation
+  belongs_to :transaction_info
 end
