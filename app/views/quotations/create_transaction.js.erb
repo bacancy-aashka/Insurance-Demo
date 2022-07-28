@@ -1,7 +1,4 @@
-<% if @transaction.errors.any? %>
-  $("#error_fields").html("<%= escape_javascript(render partial: 'error' ) %>");
-  $(window).scrollTop(0);
-<% else %>
+<% if @transaction.valid? %>
   <% if @res_type == 'Callback'%>
     $("#modal_form").html("<%= escape_javascript(render partial: 'callback_modal' ) %>");
     var myModal = new bootstrap.Modal(document.getElementById('callback_form'))
@@ -11,4 +8,7 @@
     var myModal = new bootstrap.Modal(document.getElementById('card_info_form'))
     myModal.show();
   <% end %>
+<% else %>
+  $("#error_fields").html("<%= escape_javascript(render partial: 'error' ) %>");
+  $(window).scrollTop(0);
 <% end %>
