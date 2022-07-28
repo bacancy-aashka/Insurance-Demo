@@ -25,7 +25,8 @@ class QuotationsController < ApplicationController
 
   def thank_you
     @quotation = Quotation.includes(:address, transaction_info: [:address]).find_by(id: params[:quotation_id])
-    unless @quotation
+    @transaction = @quotation.transaction_info.last
+    unless @quotation && @transaction
       redirect_to root_path
     end
   end
