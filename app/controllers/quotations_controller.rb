@@ -40,10 +40,7 @@ class QuotationsController < ApplicationController
 
     respond_to do |format|
       if @quotation.save
-        @transaction = TransactionInfo.new
-        @transaction.home_owner_1 = @quotation.first_name + ' ' + @quotation.last_name
-        @transaction.build_address
-        @transaction.address = @quotation.address
+        @transaction = create_new_transaction(@quotation)
         format.js { render layout: false }
         format.html { redirect_to root_path, notice: "Quotation was successfully created." }
         
@@ -72,6 +69,15 @@ class QuotationsController < ApplicationController
     def callback_params
       params.require(:callback_information).permit(:phone_number, :call_availability, :transaction_info_id)
     end
+
+    def create_new_transaction(quotation)
+      transaction = TransactionInfo.new
+      transaction.home_owner_1 = quotation.first_name + ' ' + quotation.last_name
+      transaction.build_address
+      transaction.address = quotation.address
+      transaction
+    end
+    
     
     
     

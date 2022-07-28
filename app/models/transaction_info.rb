@@ -6,5 +6,5 @@ class TransactionInfo < ApplicationRecord
   accepts_nested_attributes_for :address
 
   belongs_to :quotation
-  validates :language, :home_owner_1, :property_type, :purchase_date, :lot_number, :bound_water, :muncipal_water, :insurance_issued, :insurance_denied, presence: true
+  # validates :language, :home_owner_1, :property_type, :purchase_date, :lot_number, :bound_water, :muncipal_water, :insurance_issued, :insurance_denied, presence: true
 end

@@ -7,6 +7,11 @@
     $("#modal_form").html("<%= escape_javascript(render partial: 'payment_modal' ) %>");
     var myModal = new bootstrap.Modal(document.getElementById('card_info_form'))
     myModal.show();
+    $('#card_information_card_number').on('keypress change', function () {
+      $(this).val(function (index, value) {
+        return value.replace(/\W/gi, '').replace(/(.{4})/g, '$1 ');
+      });
+    });
   <% end %>
 <% else %>
   $("#error_fields").html("<%= escape_javascript(render partial: 'error' ) %>");
