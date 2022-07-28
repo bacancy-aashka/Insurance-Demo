@@ -46,44 +46,44 @@
 </table>
 
 <h2>Transaction Details</h2>
-
+<% @transaction = @quotation.transaction_info.last %>
 <table>
   <tbody>
     <tr>
       <td>Languages</td>
-      <td><%= TransactionInfo.languages.keys[@quotation.transaction_info.language].titleize %></td>
+      <td><%= TransactionInfo.languages.keys[@transaction.language].titleize %></td>
     </tr>
     <tr>
       <td>Home Owner</td>
-      <td><%= @quotation.transaction_info.home_owner_1 %> </td>
+      <td><%= @transaction.home_owner_1 %> </td>
     </tr>
-    <% if @quotation.transaction_info.home_owner_2? %>
+    <% if @transaction.home_owner_2? %>
       <tr>
         <td>Home Owner 2</td>
-        <td><%= @quotation.transaction_info.home_owner_2 %> </td>
+        <td><%= @transaction.home_owner_2 %> </td>
       </tr>
     <%end%>
-    <% if @quotation.transaction_info.home_owner_3? %>
+    <% if @transaction.home_owner_3? %>
       <tr>
         <td>Home Owner 3</td>
-        <td><%= @quotation.transaction_info.home_owner_3 %> </td>
+        <td><%= @transaction.home_owner_3 %> </td>
       </tr>
     <%end%>
     <tr>
       <td>Property Type</td>
-      <td><%= TransactionInfo.property_types.keys[@quotation.transaction_info.property_type] %> </td>
+      <td><%= TransactionInfo.property_types.keys[@transaction.property_type] %> </td>
     </tr>
     <tr>
       <td>Property Owner</td>
-      <td><%= @quotation.transaction_info.property_owner.humanize %> </td>
+      <td><%= @transaction.property_owner.humanize %> </td>
     </tr>
     <tr>
       <td>Purchase Date</td>
-      <td><%= @quotation.transaction_info.purchase_date %> </td>
+      <td><%= @transaction.purchase_date %> </td>
     </tr>
     <tr>
       <td>Lot Number</td>
-      <td><%= @quotation.transaction_info.lot_number %> </td>
+      <td><%= @transaction.lot_number %> </td>
     </tr>
   </tbody>
 </table>
@@ -94,23 +94,23 @@
   <tbody>
     <tr>
       <td>Lot Number</td>
-      <td><%= @quotation.transaction_info.lot_number %> </td>
+      <td><%= @transaction.lot_number %> </td>
     </tr>
     <tr>
       <td>Address</td>
-      <td><%= @quotation.transaction_info.address.address %> </td>
+      <td><%= @transaction.address.address %> </td>
     </tr>
     <tr>
       <td>City</td>
-      <td><%= @quotation.transaction_info.address.city %> </td>
+      <td><%= @transaction.address.city %> </td>
     </tr>
     <tr>
       <td>Province</td>
-      <td><%= @quotation.transaction_info.address.province %> </td>
+      <td><%= @transaction.address.province %> </td>
     </tr>
     <tr>
       <td>Postal Code</td>
-      <td><%= @quotation.transaction_info.address.postal_code %> </td>
+      <td><%= @transaction.address.postal_code %> </td>
     </tr>
     <tr>
   </tbody>
@@ -122,19 +122,19 @@
   <tbody>
     <tr>
       <td>Is the Insured Property bound by water (lac, stream, river, etc.)?</td>
-      <td><%= @quotation.transaction_info.bound_water.humanize %> </td>
+      <td><%= @transaction.bound_water.humanize %> </td>
     </tr>
     <tr>
       <td>Is the Insured Property on Municipal Water and Municipal Sewer?</td>
-      <td><%= @quotation.transaction_info.muncipal_water.humanize %> </td>
+      <td><%= @transaction.muncipal_water.humanize %> </td>
     </tr>
     <tr>
       <td>Has a title insurance already been issued for the insured property according to the client ?</td>
-      <td><%= @quotation.transaction_info.insurance_issued.humanize %> </td>
+      <td><%= @transaction.insurance_issued.humanize %> </td>
     </tr>
     <tr>
       <td>Has a title insurance been denied for the insured property, to the best of the client's knowledge?</td>
-      <td><%= @quotation.transaction_info.insurance_denied.humanize %> </td>
+      <td><%= @transaction.insurance_denied.humanize %> </td>
     </tr>
   </tbody>
 </table>
@@ -145,31 +145,31 @@
   <tbody>
     <tr>
       <td>Note</td>
-      <td><%= @quotation.transaction_info.note %> </td>
+      <td><%= @transaction.note %> </td>
     </tr>
     <tr>
       <td>Agent Name</td>
-      <td><%= @quotation.transaction_info.agent_name %> </td>
+      <td><%= @transaction.agent_name %> </td>
     </tr>
     <tr>
       <td>Agen Email</td>
-      <td><%= @quotation.transaction_info.agent_email %> </td>
+      <td><%= @transaction.agent_email %> </td>
     </tr>
   </tbody>
 </table>
 
-<% if @quotation.transaction_info.callback_information.present? %>
+<% if @transaction.callback_information.present? %>
   <h3> Callback Requested </h3>
   <div>
   Phone Number:
-  <%= @quotation.transaction_info.callback_information.phone_number %>
+  <%= @transaction.callback_information.phone_number %>
   </div>
   <div>
   Call Availability:
-  <%= CallbackInformation.call_availabilities.keys[@quotation.transaction_info.callback_information.call_availability] %>
+  <%= CallbackInformation.call_availabilities.keys[@transaction.callback_information.call_availability] %>
   </div>
 <% else %>
   <h3 class="text-success my-2"> Payment Done Online </h3>
   <strong> Transaction id:</strong>
-  <%= Digest::SHA1.hexdigest(@quotation.transaction_info.card_information.id.to_s)%>
+  <%= Digest::SHA1.hexdigest(@transaction.card_information.id.to_s)%>
 <% end %>

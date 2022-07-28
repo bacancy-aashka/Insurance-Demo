@@ -2,7 +2,7 @@ class Quotation < ApplicationRecord
   has_one :address
   accepts_nested_attributes_for :address
   
-  has_one :transaction_info
+  has_many :transaction_info
   accepts_nested_attributes_for :transaction_info
 
 
